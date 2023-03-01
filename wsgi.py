@@ -1,6 +1,10 @@
 from blog.app import app, db
-
+from blog.app import app
 if __name__ == "__main__":
+    app(
+        host="0.0.0.0",
+        debug=True,
+    )
     app.run(
         host="0.0.0.0",
         debug=True,
@@ -28,3 +32,8 @@ def create_users():
     db.session.add(james)
     db.session.commit()
     print("done! created users:", admin, james)
+
+
+
+
+    

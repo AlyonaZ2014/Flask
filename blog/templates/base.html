@@ -47,8 +47,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
    
   {% endblock %}  
+  {% for (endpoint, label) in [('auth_app.login', 'Login'), ('auth_app.register',
+'Register')] %}
+    <a href="{{ url_for(endpoint) }}"
+      class="nav-link {% if request.endpoint == endpoint -%}active{%- endif %}">
+    {{ label }}
+    </a>
+{% endfor %}
   </body>
 </html>
+
+
 
 
 

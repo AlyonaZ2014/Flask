@@ -16,7 +16,8 @@ def articles_list():
 
 @articles_app.route("/<int:article_id>/", endpoint="details")
 def article_detals(article_id):
-    article = Article.query.filter_by(id=article_id).one_or_none()
+    article = Article.query.filter_by(id=article_id).options(
+joinedload(Article.tags)).one_or_none()
     if article is None:
         raise NotFound
     return render_template("articles/details.html", article=article)
@@ -45,6 +46,12 @@ def create_article():
             error = "Could not create article!"
         else:
             return redirect(url_for("articles_app.details", article_id=article.id))
+        form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
+        if request.method == "POST" and form.validate_on_submit():
+            if form.tags.data:
+                elected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
+                for tag in selected_tags:
+                    article.tags.append(tag)
     return render_template("articles/create.html", form=form, error=error)
 
 

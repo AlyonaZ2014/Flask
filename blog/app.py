@@ -9,9 +9,11 @@ import os
 from flask_migrate import Migrate
 from blog.security import flask_bcrypt
 from blog.views.authors import authors_app
+from blog.admin import admin
 
 app = Flask(__name__)
 app.register_blueprint(authors_app, url_prefix="/authors")
+admin.init_app(app)
 
 @app.route("/")
 def index():

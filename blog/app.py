@@ -98,6 +98,24 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
+@app.cli.command("create-tags")
+def create_tags():
+    """
+    Run in your terminal:
+    ➜ flask create-tags
+    """
+    from blog.models import Tag
+    for name in [
+        "flask",
+        "django",
+        "python",
+        "sqlalchemy",
+        "news",
+    ]:
+        tag = Tag(name=name)
+        db.session.add(tag)
+    db.session.commit()
+    print("created tags")
 
 # @app.cli.command("init-db")
 # def init_db():

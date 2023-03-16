@@ -11,3 +11,4 @@ class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
 class TestingConfig(BaseConfig):
     TESTING = True
+    FLASK_ADMIN_SWATCH = 'cosmo'
